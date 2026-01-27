@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3f4f6;
+  --foreground: #111827;
+  --primary: #f59e0b;
+  --secondary: #d97706;
+  --accent-yellow: #fde047;
+  --text-muted: #4b5563;
+  --cv-bg: #ffffff;
+
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-text-muted: var(--text-muted);
+  --color-cv-bg: var(--cv-bg);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-montserrat);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-montserrat);
+  }
+}
+
+.clip-path-triangle {
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 10px;
+}
+
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  nav,
+  aside,
+  .sidebar-overlay,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  .flex-1.overflow-y-auto {
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: white !important;
+  }
+
+  .max-w-5xl {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .cv-print-container {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+}
