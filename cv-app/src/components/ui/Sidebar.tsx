@@ -24,7 +24,9 @@ const Sidebar = ({
     currentColor,
     onColorChange,
     isAtsFriendly,
-    onToggleAts
+    onToggleAts,
+    userName,
+    onDocumentsClick
 }: {
     isOpen: boolean,
     onClose: () => void,
@@ -32,7 +34,9 @@ const Sidebar = ({
     currentColor: string,
     onColorChange: (color: string) => void,
     isAtsFriendly: boolean,
-    onToggleAts: () => void
+    onToggleAts: () => void,
+    userName: string,
+    onDocumentsClick: () => void
 }) => {
     const [isColorOpen, setIsColorOpen] = useState(false);
     const menuItems = [
@@ -51,40 +55,45 @@ const Sidebar = ({
         <>
             {/* Overlay for mobile */}
             <div
-                className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-opacity lg:hidden ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300 md:hidden ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                 onClick={onClose}
             />
 
-            <aside className={`fixed lg:sticky top-0 left-0 z-50 w-72 bg-white border-r border-gray-100 flex flex-col h-screen transition-transform duration-300 transform ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
+            <aside className={`fixed md:sticky top-0 left-0 z-[60] w-72 bg-white border-r border-gray-100 flex flex-col h-[100dvh] transition-transform duration-300 ease-in-out transform ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
                 <div className="p-8 flex-1 overflow-y-auto custom-scrollbar">
-                    <div className="flex items-center justify-between mb-10">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
-                                <FileText size={24} />
+                    <div className="flex flex-col gap-6 mb-12">
+                        <div className="flex items-center justify-between">
+                            <div className="relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent-yellow rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                                <div className="relative w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shadow-xl border border-gray-100 group-hover:scale-110 transition-transform duration-300">
+                                    <Zap size={24} className="fill-primary/20" />
+                                </div>
                             </div>
-                            <h1 className="text-xl font-black tracking-tight text-foreground font-display">CV<span className="text-primary">GEN</span></h1>
+                            {/* Close button for mobile */}
+                            <button onClick={onClose} className="lg:hidden text-gray-400 hover:text-foreground p-2">
+                                <PlusCircle size={24} className="rotate-45" />
+                            </button>
                         </div>
-                        {/* Close button for mobile */}
-                        <button onClick={onClose} className="lg:hidden text-gray-400 hover:text-foreground">
-                            <PlusCircle size={24} className="rotate-45" />
-                        </button>
+
+                        <div className="space-y-1">
+                            <p className="text-[10px] font-black uppercase text-gray-400 tracking-[0.2em] leading-none">Portafolio Pro</p>
+                            <h2 className="text-2xl font-bold tracking-tight text-foreground font-display leading-tight">
+                                {userName.split(' ')[0]}<br />
+                                <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">{userName.split(' ').slice(1).join(' ')}</span>
+                            </h2>
+                        </div>
                     </div>
 
                     <nav className="space-y-2 mb-10">
-                        {menuItems.map((item, index) => (
-                            <button
-                                key={index}
-                                className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group ${item.active
-                                    ? "bg-primary/10 text-primary shadow-sm"
-                                    : "text-gray-500 hover:bg-gray-50 hover:text-foreground"
-                                    }`}
-                            >
-                                <span className={`${item.active ? "text-primary" : "text-gray-400 group-hover:text-primary transition-colors"}`}>
-                                    {item.icon}
-                                </span>
-                                <span className="text-sm font-bold tracking-tight">{item.label}</span>
-                            </button>
-                        ))}
+                        <button
+                            onClick={onDocumentsClick}
+                            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group bg-primary/10 text-primary shadow-sm"
+                        >
+                            <span className="text-primary truncate">
+                                <FileText size={20} />
+                            </span>
+                            <span className="text-sm font-bold tracking-tight">Mis Documentos</span>
+                        </button>
                     </nav>
 
                     <div className="space-y-4">
@@ -143,30 +152,6 @@ const Sidebar = ({
                             </p>
                         </div>
 
-                        <div className="pt-6 border-t border-gray-50">
-                            <h3 className="text-[10px] font-black uppercase text-gray-400 tracking-widest px-4 mb-4">Redes Sociales</h3>
-                            <div className="flex items-center gap-2 px-2">
-                                <a href="#" className="p-2 text-gray-400 hover:text-[#0077b5] hover:bg-gray-50 rounded-lg transition-all" title="LinkedIn">
-                                    <Linkedin size={18} />
-                                </a>
-                                <a href="#" className="p-2 text-gray-400 hover:text-[#e4405f] hover:bg-gray-50 rounded-lg transition-all" title="Instagram">
-                                    <Instagram size={18} />
-                                </a>
-                                <a href="#" className="p-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-lg transition-all" title="X">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                    </svg>
-                                </a>
-                                <a href="#" className="p-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-lg transition-all" title="TikTok">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z" />
-                                    </svg>
-                                </a>
-                                <a href="#" className="p-2 text-gray-400 hover:text-[#1877f2] hover:bg-gray-50 rounded-lg transition-all" title="Facebook">
-                                    <Facebook size={18} />
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
