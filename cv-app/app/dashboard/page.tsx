@@ -6,8 +6,8 @@ import Sidebar from "@/components/ui/Sidebar";
 import Navbar from "@/components/ui/Navbar";
 import CVEditor from "@/components/cv/CVEditor";
 import { mockCVData } from "@/lib/mockData";
-import { signOut } from '@/app/actions/auth';
-import { getProfile, updateProfile } from '@/app/actions/profile';
+import { signOut } from '@app/actions/auth';
+import { getProfile, updateProfile } from '@app/actions/profile';
 import DocumentManager from '@/components/ui/DocumentManager';
 
 export default function DashboardPage() {

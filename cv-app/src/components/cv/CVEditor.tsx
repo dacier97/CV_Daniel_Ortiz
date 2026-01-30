@@ -15,7 +15,7 @@ import {
     Loader2,
     Check
 } from 'lucide-react';
-import { selectAvatar, uploadAvatar } from '@/app/actions/profile';
+import { selectAvatar, uploadAvatar } from '@app/actions/profile';
 
 const CVEditor = ({ data, onChange }: { data: any, onChange: (newData: any) => void }) => {
     const [activeTab, setActiveTab] = useState('personal');

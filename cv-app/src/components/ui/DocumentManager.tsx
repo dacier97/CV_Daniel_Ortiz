@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useTransition } from 'react'
 import { FileText, Upload, Trash2, Loader2, ExternalLink, X, Plus } from 'lucide-react'
-import { getDocuments, uploadDocument, deleteDocument } from '@/app/actions/documents'
+import { getDocuments, uploadDocument, deleteDocument } from '@app/actions/documents'
 
 export default function DocumentManager({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
     const [documents, setDocuments] = useState<any[]>([])

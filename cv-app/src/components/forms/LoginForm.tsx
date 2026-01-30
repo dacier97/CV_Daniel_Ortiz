@@ -2,7 +2,7 @@
 
 import React, { useState, useTransition } from 'react';
 import { Lock, Mail, ArrowRight, Loader2 } from 'lucide-react';
-import { signIn } from '@/app/actions/auth';
+import { signIn } from '@app/actions/auth';
 
 const LoginForm = () => {
     const [error, setError] = useState<string | null>(null);
