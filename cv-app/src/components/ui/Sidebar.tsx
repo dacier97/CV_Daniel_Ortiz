@@ -75,9 +75,9 @@ const Sidebar = ({
                             </button>
                         </div>
 
-                        <div className="space-y-1">
+                        <div className="space-y-1 text-center">
                             <p className="text-[10px] font-black uppercase text-gray-400 tracking-[0.2em] leading-none">Portafolio Pro</p>
-                            <h2 className="text-2xl font-bold tracking-tight text-foreground font-display leading-tight">
+                            <h2 className="text-2xl font-bold tracking-tight text-foreground font-display leading-tight uppercase">
                                 {userName.split(' ')[0]}<br />
                                 <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">{userName.split(' ').slice(1).join(' ')}</span>
                             </h2>
@@ -157,12 +157,12 @@ const Sidebar = ({
 
                 <div className="mt-auto p-8 border-t border-gray-50 bg-white">
                     <div className="flex items-center gap-4 mb-8 p-3 rounded-2xl bg-gray-50/50">
-                        <div className="w-10 h-10 rounded-full bg-accent-yellow flex items-center justify-center text-xs font-bold border-2 border-white shadow-sm">
-                            EH
+                        <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold border-2 border-white shadow-sm">
+                            {userName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
                         </div>
                         <div className="flex-1 overflow-hidden">
-                            <p className="text-xs font-bold text-foreground truncate">Emma Harrison</p>
-                            <p className="text-[10px] text-gray-400 font-medium truncate">Premium Account</p>
+                            <p className="text-xs font-bold text-foreground truncate uppercase">{userName}</p>
+                            <p className="text-[10px] text-gray-400 font-medium truncate">Cuenta Profesional</p>
                         </div>
                     </div>
 
