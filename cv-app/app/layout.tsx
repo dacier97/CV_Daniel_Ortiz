@@ -13,8 +13,40 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Professional CV Generator",
-  description: "Create ATS-optimized professional CVs with ease.",
+  title: "Daniel Ortiz | Ingeniero Electrónico & Full Stack Developer",
+  description: "Portafolio profesional, proyectos, experiencia en telecomunicaciones, redes, cloud, React, Next.js y automatización con Power Platform.",
+  keywords: ["ingeniero electrónico", "telecomunicaciones", "React", "Next.js", "cloud", "Supabase", "portafolio", "CV"],
+  authors: [{ name: "Daniel Ortiz" }],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "Daniel Ortiz | Ingeniero Electrónico & Full Stack Developer",
+    description: "Portafolio profesional, proyectos, experiencia en telecomunicaciones, redes, cloud, React, Next.js y automatización con Power Platform.",
+    url: "https://tudominio.com",
+    siteName: "Daniel Ortiz Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Daniel Ortiz | Ingeniero Electrónico & Full Stack Developer",
+      },
+    ],
+    locale: "es_CO",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Daniel Ortiz | Ingeniero Electrónico & Full Stack Developer",
+    description: "Portafolio profesional, proyectos, experiencia en telecomunicaciones, redes, cloud, React, Next.js y automatización con Power Platform.",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
