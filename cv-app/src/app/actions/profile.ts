@@ -23,6 +23,25 @@ export async function getProfile() {
     return data
 }
 
+export async function getPublicProfile() {
+    const supabase = await createClient()
+
+    // Fetches the first profile found in the table. 
+    // Suitable for a personal single-user application.
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .limit(1)
+        .maybeSingle()
+
+    if (error) {
+        console.error('Error fetching public profile:', error)
+        return null
+    }
+
+    return data
+}
+
 export async function updateProfile(formData: FormData) {
     const supabase = await createClient()
 

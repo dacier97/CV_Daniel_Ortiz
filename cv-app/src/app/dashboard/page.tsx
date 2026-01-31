@@ -22,27 +22,30 @@ export default function DashboardPage() {
     useEffect(() => {
         async function loadData() {
             const profile = await getProfile();
-            if (profile) {
-                setCvData({
-                    ...mockCVData,
-                    themeColor: profile.theme_color || mockCVData.themeColor,
-                    personalInfo: {
-                        ...mockCVData.personalInfo,
-                        name: profile.full_name?.split(' ')[0] || mockCVData.personalInfo.name,
-                        lastName: profile.full_name?.split(' ').slice(1).join(' ') || mockCVData.personalInfo.lastName,
-                        role: profile.role || mockCVData.personalInfo.role,
-                        photo: profile.avatar_url || '',
-                        photos: profile.avatar_gallery?.length ? profile.avatar_gallery : ['', '', ''],
-                        contactInfo: profile.contact_info || mockCVData.personalInfo.contactInfo,
-                    },
-                    objective: profile.bio || mockCVData.objective,
-                    skills: profile.skills || mockCVData.skills,
-                    experience: profile.experience || mockCVData.experience,
-                    education: profile.education || mockCVData.education,
-                });
-            } else {
-                setCvData(mockCVData);
+
+            if (!profile) {
+                // Si no hay perfil/sesión, redirigir al login
+                window.location.href = '/login';
+                return;
             }
+
+            setCvData({
+                ...mockCVData,
+                themeColor: profile.theme_color || mockCVData.themeColor,
+                personalInfo: {
+                    ...mockCVData.personalInfo,
+                    name: profile.full_name?.split(' ')[0] || mockCVData.personalInfo.name,
+                    lastName: profile.full_name?.split(' ').slice(1).join(' ') || mockCVData.personalInfo.lastName,
+                    role: profile.role || mockCVData.personalInfo.role,
+                    photo: profile.avatar_url || '',
+                    photos: profile.avatar_gallery?.length ? profile.avatar_gallery : ['', '', ''],
+                    contactInfo: profile.contact_info || mockCVData.personalInfo.contactInfo,
+                },
+                objective: profile.bio || mockCVData.objective,
+                skills: profile.skills || mockCVData.skills,
+                experience: profile.experience || mockCVData.experience,
+                education: profile.education || mockCVData.education,
+            });
             setLoading(false);
         }
         loadData();
