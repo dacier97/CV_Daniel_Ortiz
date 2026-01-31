@@ -13,6 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tudominio.com"),
   title: "Daniel Ortiz | Ingeniero Electrónico & Full Stack Developer",
   description: "Portafolio profesional, proyectos, experiencia en telecomunicaciones, redes, cloud, React, Next.js y automatización con Power Platform.",
   keywords: ["ingeniero electrónico", "telecomunicaciones", "React", "Next.js", "cloud", "Supabase", "portafolio", "CV"],
