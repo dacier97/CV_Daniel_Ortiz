@@ -1,32 +1,46 @@
 "use client";
 
+import { createClient } from '@/lib/supabase/client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import CVTemplate from "@/components/cv/CVTemplate";
 import Sidebar from "@/components/ui/Sidebar";
 import Navbar from "@/components/ui/Navbar";
 import CVEditor from "@/components/cv/CVEditor";
 import { mockCVData } from "@/lib/mockData";
 import { signOut } from '@app/actions/auth';
-import { getPublicProfile, getProfile, updateProfile } from '@app/actions/profile';
+import { getPublicProfile, updateProfile } from '@app/actions/profile';
 import DocumentManager from '@/components/ui/DocumentManager';
-import { useRouter } from 'next/navigation';
 
-export default function UnifiedPage({ initialUser }: { initialUser: any }) {
+export default function UnifiedPage() {
     const router = useRouter();
+    const [supabase] = useState(() => createClient());
+
+    const [user, setUser] = useState<any>(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isDocsOpen, setIsDocsOpen] = useState(false);
     const [cvData, setCvData] = useState<any>(null);
     const [viewMode, setViewMode] = useState<'edit' | 'preview'>('preview');
     const [isAtsFriendly, setIsAtsFriendly] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(!!initialUser);
 
-    // Load data from Supabase
+    // Initial session check (Client-side only)
     useEffect(() => {
-        async function loadData() {
-            // First try public profile
-            const profile = await getPublicProfile();
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setUser(session?.user ?? null);
+        });
 
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            setUser(session?.user ?? null);
+        });
+
+        return () => subscription.unsubscribe();
+    }, [supabase]);
+
+    // Load content data (Public)
+    useEffect(() => {
+        async function loadContent() {
+            const profile = await getPublicProfile();
             if (profile) {
                 setCvData({
                     ...mockCVData,
@@ -50,11 +64,12 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
             }
             setLoading(false);
         }
-        loadData();
+        loadContent();
     }, []);
 
-    const checkAuth = (action: () => void) => {
-        if (!isAuthenticated) {
+    // Helper for protected actions
+    const requireAuth = (action: () => void) => {
+        if (!user) {
             router.push('/login?redirect=/');
             return;
         }
@@ -62,7 +77,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
     };
 
     const handleSave = async () => {
-        checkAuth(async () => {
+        requireAuth(async () => {
             const formData = new FormData();
             formData.append('full_name', `${cvData.personalInfo.name} ${cvData.personalInfo.lastName}`);
             formData.append('role', cvData.personalInfo.role);
@@ -84,7 +99,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
 
     const handleLogout = async () => {
         await signOut();
-        setIsAuthenticated(false);
+        setUser(null);
         setViewMode('preview');
     };
 
@@ -114,7 +129,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
                 isAtsFriendly={isAtsFriendly}
                 onToggleAts={() => setIsAtsFriendly(!isAtsFriendly)}
                 userName={`${cvData?.personalInfo?.name || ''} ${cvData?.personalInfo?.lastName || ''}`}
-                onDocumentsClick={() => checkAuth(() => setIsDocsOpen(true))}
+                onDocumentsClick={() => requireAuth(() => setIsDocsOpen(true))}
             />
 
             <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
@@ -124,7 +139,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
                     viewMode={viewMode}
                     onToggleView={() => {
                         if (viewMode === 'preview') {
-                            checkAuth(() => setViewMode('edit'));
+                            requireAuth(() => setViewMode('edit'));
                         } else {
                             setViewMode('preview');
                         }
@@ -143,7 +158,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
 
                 <div className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 custom-scrollbar bg-gray-50/50">
                     <div className="max-w-5xl mx-auto space-y-8">
-                        {viewMode === 'edit' && isAuthenticated ? (
+                        {viewMode === 'edit' && user ? (
                             <div className="animate-in fade-in zoom-in-95 duration-300">
                                 <CVEditor data={cvData} onChange={setCvData} />
                             </div>
@@ -157,19 +172,6 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
             </div>
 
             <DocumentManager isOpen={isDocsOpen} onClose={() => setIsDocsOpen(false)} />
-
-            {/* Minimal Login Indicator for Public View */}
-            {!isAuthenticated && (
-                <div className="fixed bottom-4 right-4 z-50">
-                    <button
-                        onClick={() => router.push('/login')}
-                        className="p-2 bg-white/80 backdrop-blur-sm border border-gray-100 rounded-full shadow-lg text-gray-400 hover:text-primary transition-all scale-75 hover:scale-100 opacity-50 hover:opacity-100"
-                        title="Admin Login"
-                    >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
-                    </button>
-                </div>
-            )}
         </div>
     );
 }
