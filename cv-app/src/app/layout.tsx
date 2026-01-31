@@ -44,10 +44,6 @@ export const metadata: Metadata = {
     description: "Portafolio profesional, proyectos, experiencia en telecomunicaciones, redes, cloud, React, Next.js y automatización con Power Platform.",
     images: ["/og-image.png"],
   },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.png",
-  },
 };
 
 export default function RootLayout({

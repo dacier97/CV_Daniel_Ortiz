@@ -107,8 +107,8 @@ const CVTemplate = ({ data, isAtsFriendly = false }: { data: any, isAtsFriendly?
                     </div>
                 </div>
 
-                <div className="flex-1 md:ml-12 lg:ml-20 flex flex-col items-center justify-center text-center">
-                    <div className="mb-6 w-full">
+                <div className="flex-1 md:ml-12 lg:ml-20 flex flex-col items-center md:items-center text-center">
+                    <div className="mb-6 md:mb-8 w-full">
                         <h2 className="text-xl md:text-3xl font-light tracking-[0.3em] text-gray-400 uppercase leading-none font-display">
                             {personalInfo.name}
                         </h2>
