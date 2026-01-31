@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tudominio.com"),
+  metadataBase: new URL("https://cv-daniel-ortiz.vercel.app"),
   title: "Daniel Ortiz | Ingeniero Electrónico & Full Stack Developer",
   description: "Portafolio profesional, proyectos, experiencia en telecomunicaciones, redes, cloud, React, Next.js y automatización con Power Platform.",
   keywords: ["ingeniero electrónico", "telecomunicaciones", "React", "Next.js", "cloud", "Supabase", "portafolio", "CV"],
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Daniel Ortiz | Ingeniero Electrónico & Full Stack Developer",
     description: "Portafolio profesional, proyectos, experiencia en telecomunicaciones, redes, cloud, React, Next.js y automatización con Power Platform.",
-    url: "https://tudominio.com",
+    url: "https://cv-daniel-ortiz.vercel.app",
     siteName: "Daniel Ortiz Portfolio",
     images: [
       {
