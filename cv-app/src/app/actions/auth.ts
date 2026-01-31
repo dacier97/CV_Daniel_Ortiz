@@ -20,7 +20,7 @@ export async function signIn(formData: FormData) {
     }
 
     revalidatePath('/', 'layout')
-    redirect('/dashboard')
+    redirect('/')
 }
 
 export async function signOut() {
