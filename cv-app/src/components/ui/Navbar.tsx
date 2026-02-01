@@ -67,7 +67,7 @@ const Navbar = ({
     ];
 
     return (
-        <nav className="h-16 md:h-20 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 md:px-10 flex items-center justify-between sticky top-0 z-50 transition-all">
+        <nav className="h-16 md:h-20 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 md:px-10 flex items-center justify-between sticky top-0 z-50 transition-all no-print">
             <div className="flex items-center gap-3 md:gap-6">
                 <button
                     onClick={onMenuClick}

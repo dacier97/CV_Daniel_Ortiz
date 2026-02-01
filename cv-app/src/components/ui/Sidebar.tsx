@@ -53,11 +53,11 @@ const Sidebar = ({
         <>
             {/* Overlay for mobile */}
             <div
-                className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300 md:hidden ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300 md:hidden no-print ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                 onClick={onClose}
             />
 
-            <aside className={`fixed md:sticky top-0 left-0 z-[60] w-72 bg-white border-r border-gray-100 flex flex-col h-[100dvh] transition-transform duration-300 ease-in-out transform ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
+            <aside className={`fixed md:sticky top-0 left-0 z-[60] w-72 bg-white border-r border-gray-100 flex flex-col h-[100dvh] transition-transform duration-300 ease-in-out transform no-print ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
                 <div className="p-8 flex-1 overflow-y-auto custom-scrollbar">
                     <div className="flex flex-col gap-6 mb-12">
                         <div className="flex items-center justify-between">
