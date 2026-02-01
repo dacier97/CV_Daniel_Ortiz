@@ -64,33 +64,38 @@ body {
     background: white !important;
   }
 
-  /* Ocultar UI */
-  aside,
-  nav,
-  header,
-  footer,
-  button,
+  body * {
+    visibility: hidden !important;
+  }
+
+  .cv-print-area,
+  .cv-print-area * {
+    visibility: visible !important;
+  }
+
+  .cv-print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   .no-print {
     display: none !important;
   }
 
-  /* Quitar restricciones de layout */
   .flex,
   .h-screen,
   .min-h-screen,
   .overflow-hidden,
   .overflow-y-auto {
-    height: auto !important;
     overflow: visible !important;
-    display: block !important;
-  }
-
-  /* Forzar solo el CV */
-  .cv-print-container {
-    width: 100% !important;
     height: auto !important;
-    overflow: visible !important;
-    break-inside: avoid;
+    max-height: none !important;
     display: block !important;
   }
 

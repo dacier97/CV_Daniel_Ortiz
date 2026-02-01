@@ -8,7 +8,7 @@ const CVTemplate = ({ data, isAtsFriendly = false }: { data: any, isAtsFriendly?
     // ATS Mode Styles
     if (isAtsFriendly) {
         return (
-            <div className="w-full max-w-[850px] mx-auto bg-white p-12 md:p-16 text-[#333] font-serif leading-relaxed selection:bg-gray-200">
+            <div className="cv-print-area w-full max-w-[850px] mx-auto bg-white p-12 md:p-16 text-[#333] font-serif leading-relaxed selection:bg-gray-200">
                 {/* Simplified Header */}
                 <header className="border-b-2 border-gray-900 pb-6 mb-8 text-center">
                     <h1 className="text-4xl font-bold uppercase tracking-tight text-black mb-2">{personalInfo.name} {personalInfo.lastName}</h1>
@@ -81,7 +81,7 @@ const CVTemplate = ({ data, isAtsFriendly = false }: { data: any, isAtsFriendly?
 
     // Original Premium Mode
     return (
-        <div className="w-full max-w-[850px] mx-auto bg-white shadow-2xl my-4 md:my-16 p-6 md:p-16 min-h-[1100px] flex flex-col text-foreground selection:bg-primary/30 rounded-none md:rounded-lg font-sans">
+        <div className="cv-print-area w-full max-w-[850px] mx-auto bg-white shadow-2xl my-4 md:my-16 p-6 md:p-16 min-h-[1100px] flex flex-col text-foreground selection:bg-primary/30 rounded-none md:rounded-lg font-sans">
             {/* Header Section */}
             <header className="flex flex-col md:flex-row items-center md:items-start justify-between mb-6 md:mb-12 gap-10 md:gap-0">
                 <div className="relative group shrink-0">
@@ -90,14 +90,11 @@ const CVTemplate = ({ data, isAtsFriendly = false }: { data: any, isAtsFriendly?
 
                     {/* Image Container with explicit aspect ratio to prevent deformation */}
                     <div className="relative w-44 h-56 md:w-56 md:h-64 overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 shadow-sm z-0">
-                        <Image
+                        <img
                             src={personalInfo.photo}
                             alt={`${personalInfo.name} ${personalInfo.lastName}`}
-                            fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                            sizes="(max-width: 768px) 176px, 224px"
-                            priority
-                            unoptimized
+                            crossOrigin="anonymous"
+                            className="w-full h-full object-cover print:block transition-transform duration-700 group-hover:scale-105"
                         />
                     </div>
                 </div>

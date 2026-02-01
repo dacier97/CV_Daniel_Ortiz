@@ -150,15 +150,19 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
                             setViewMode('preview');
                         }
                     }}
-                    onDownloadPremium={() => {
+                    onDownloadPremium={async () => {
                         setIsAtsFriendly(false);
                         setViewMode('preview');
-                        setTimeout(() => window.print(), 300);
+                        await document.fonts.ready;
+                        await new Promise(r => setTimeout(r, 300));
+                        window.print();
                     }}
-                    onDownloadAts={() => {
+                    onDownloadAts={async () => {
                         setIsAtsFriendly(true);
                         setViewMode('preview');
-                        setTimeout(() => window.print(), 300);
+                        await document.fonts.ready;
+                        await new Promise(r => setTimeout(r, 300));
+                        window.print();
                     }}
                 />
 
