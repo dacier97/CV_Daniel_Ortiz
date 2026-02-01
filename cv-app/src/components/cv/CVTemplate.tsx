@@ -91,12 +91,13 @@ const CVTemplate = ({ data, isAtsFriendly = false }: { data: any, isAtsFriendly?
                     {/* Image Container with explicit aspect ratio to prevent deformation */}
                     <div className="relative w-44 h-56 md:w-56 md:h-64 overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 shadow-sm z-0">
                         <Image
-                            src="/profile.jpg"
+                            src={personalInfo.photo}
                             alt={`${personalInfo.name} ${personalInfo.lastName}`}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                             sizes="(max-width: 768px) 176px, 224px"
                             priority
+                            unoptimized
                         />
                     </div>
                 </div>

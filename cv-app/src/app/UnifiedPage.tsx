@@ -57,7 +57,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
                         name: profile.full_name?.split(' ')[0] || mockCVData.personalInfo.name,
                         lastName: profile.full_name?.split(' ').slice(1).join(' ') || mockCVData.personalInfo.lastName,
                         role: profile.role || mockCVData.personalInfo.role,
-                        photo: profile.avatar_url || '/profile.jpg', // Carga desde /public por defecto
+                        photo: profile.avatar_url ? `${profile.avatar_url}?v=${new Date(profile.updated_at).getTime()}` : '/profile.jpg', // Cache busting
                         photos: profile.avatar_gallery?.length ? profile.avatar_gallery : ['/profile.jpg', '/profile.jpg', '/profile.jpg'],
                         contactInfo: profile.contact_info || mockCVData.personalInfo.contactInfo,
                     },
