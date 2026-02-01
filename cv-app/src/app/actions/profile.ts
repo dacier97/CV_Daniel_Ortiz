@@ -32,8 +32,7 @@ export async function getPublicProfile() {
     const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .limit(1)
-        .maybeSingle()
+        .single()
 
     if (error) {
         console.error('Error fetching public profile:', error)
@@ -78,7 +77,7 @@ export async function updateProfile(formData: FormData) {
         return { error: error.message }
     }
 
-    revalidatePath('/dashboard')
+    revalidatePath('/')
     return { success: true }
 }
 
@@ -159,7 +158,7 @@ export async function uploadAvatar(formData: FormData) {
     }
 
     console.log('Profile updated successfully')
-    revalidatePath('/dashboard')
+    revalidatePath('/')
     return { success: true, url: publicUrl }
 }
 
@@ -178,6 +177,6 @@ export async function selectAvatar(url: string) {
         return { error: error.message }
     }
 
-    revalidatePath('/dashboard')
+    revalidatePath('/')
     return { success: true }
 }
