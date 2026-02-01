@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, unstable_noStore as noStore } from 'next/cache'
 
 export async function getProfile() {
     const supabase = await createClient()
@@ -24,6 +24,7 @@ export async function getProfile() {
 }
 
 export async function getPublicProfile() {
+    noStore();
     const supabase = await createClient()
 
     // Fetches the first profile found in the table. 
