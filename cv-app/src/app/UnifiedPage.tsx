@@ -77,7 +77,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
             }
         }
         loadContent();
-    }, []);
+    }, [user]);
 
     const requireAuth = (action: () => void) => {
         if (!user) {
@@ -101,6 +101,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
 
             const result = await updateProfile(formData);
             if (result.success) {
+                router.refresh();
                 alert('¡Perfil actualizado con éxito!');
             } else {
                 alert('Error: ' + result.error);
