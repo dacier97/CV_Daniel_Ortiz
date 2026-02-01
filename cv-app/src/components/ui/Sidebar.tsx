@@ -18,6 +18,7 @@ import {
 import { useState } from 'react';
 
 const Sidebar = ({
+    user,
     isOpen,
     onClose,
     onLogout,
@@ -28,6 +29,7 @@ const Sidebar = ({
     userName,
     onDocumentsClick
 }: {
+    user: any,
     isOpen: boolean,
     onClose: () => void,
     onLogout: () => void,
@@ -39,10 +41,6 @@ const Sidebar = ({
     onDocumentsClick: () => void
 }) => {
     const [isColorOpen, setIsColorOpen] = useState(false);
-    const menuItems = [
-        { icon: <FileText size={20} />, label: "Mis Documentos", active: true },
-    ];
-
     const themes = [
         { name: "Creativo", color: "#FF5E1A", sector: "Diseño, Marketing" },
         { name: "Corporativo", color: "#0F172A", sector: "Banca, Legal" },
@@ -84,17 +82,20 @@ const Sidebar = ({
                         </div>
                     </div>
 
-                    <nav className="space-y-2 mb-10">
-                        <button
-                            onClick={onDocumentsClick}
-                            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group bg-primary/10 text-primary shadow-sm"
-                        >
-                            <span className="text-primary truncate">
-                                <FileText size={20} />
-                            </span>
-                            <span className="text-sm font-bold tracking-tight">Mis Documentos</span>
-                        </button>
-                    </nav>
+                    {/* Admin section - Mis Documentos */}
+                    {!!user && (
+                        <nav className="space-y-2 mb-10">
+                            <button
+                                onClick={onDocumentsClick}
+                                className="w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group bg-primary/10 text-primary shadow-sm"
+                            >
+                                <span className="text-primary truncate">
+                                    <FileText size={20} />
+                                </span>
+                                <span className="text-sm font-bold tracking-tight">Mis Documentos</span>
+                            </button>
+                        </nav>
+                    )}
 
                     <div className="space-y-4">
                         <button
@@ -155,25 +156,28 @@ const Sidebar = ({
                     </div>
                 </div>
 
-                <div className="mt-auto p-8 border-t border-gray-50 bg-white">
-                    <div className="flex items-center gap-4 mb-8 p-3 rounded-2xl bg-gray-50/50">
-                        <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold border-2 border-white shadow-sm">
-                            {userName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                {/* User section - Show only if logged in */}
+                {!!user && (
+                    <div className="mt-auto p-8 border-t border-gray-50 bg-white">
+                        <div className="flex items-center gap-4 mb-8 p-3 rounded-2xl bg-gray-50/50">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold border-2 border-white shadow-sm">
+                                {userName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                            </div>
+                            <div className="flex-1 overflow-hidden">
+                                <p className="text-xs font-bold text-foreground truncate uppercase">{userName}</p>
+                                <p className="text-[10px] text-gray-400 font-medium truncate">Cuenta Profesional</p>
+                            </div>
                         </div>
-                        <div className="flex-1 overflow-hidden">
-                            <p className="text-xs font-bold text-foreground truncate uppercase">{userName}</p>
-                            <p className="text-[10px] text-gray-400 font-medium truncate">Cuenta Profesional</p>
-                        </div>
-                    </div>
 
-                    <button
-                        onClick={onLogout}
-                        className="w-full flex items-center gap-4 px-4 py-3 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200"
-                    >
-                        <LogOut size={20} />
-                        <span className="text-sm font-bold tracking-tight">Cerrar Sesión</span>
-                    </button>
-                </div>
+                        <button
+                            onClick={onLogout}
+                            className="w-full flex items-center gap-4 px-4 py-3 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200"
+                        >
+                            <LogOut size={20} />
+                            <span className="text-sm font-bold tracking-tight">Cerrar Sesión</span>
+                        </button>
+                    </div>
+                )}
             </aside>
         </>
     );

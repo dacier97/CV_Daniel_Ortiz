@@ -2,6 +2,7 @@ import { Share2, Download, Eye, Save, Menu, Edit3, ChevronDown, CheckCircle, Lin
 import { useState } from 'react';
 
 const Navbar = ({
+    user,
     onMenuClick,
     onSave,
     viewMode,
@@ -9,6 +10,7 @@ const Navbar = ({
     onDownloadPremium,
     onDownloadAts
 }: {
+    user: any,
     onMenuClick: () => void,
     onSave: () => void,
     viewMode: 'edit' | 'preview',
@@ -90,30 +92,35 @@ const Navbar = ({
             </div>
 
             <div className="flex items-center gap-1 lg:gap-4 font-display">
-                <button
-                    onClick={onToggleView}
-                    className="flex items-center gap-2 p-2 lg:px-5 lg:py-2.5 text-sm font-bold text-gray-500 hover:text-foreground hover:bg-gray-50 rounded-xl transition-all"
-                >
-                    {viewMode === 'preview' ? (
-                        <>
-                            <Edit3 size={18} />
-                            <span className="hidden lg:inline">Editar</span>
-                        </>
-                    ) : (
-                        <>
-                            <Eye size={18} />
-                            <span className="hidden lg:inline">Vista Previa</span>
-                        </>
-                    )}
-                </button>
-                <button
-                    onClick={onSave}
-                    className="flex items-center gap-2 p-2 lg:px-5 lg:py-2.5 text-sm font-bold text-primary hover:bg-primary/5 rounded-xl transition-all"
-                >
-                    <Save size={18} />
-                    <span className="hidden lg:inline">Guardar</span>
-                </button>
-                <div className="hidden lg:block w-px h-6 bg-gray-100 mx-2"></div>
+                {/* Admin Buttons - Conditionally Rendered */}
+                {!!user && (
+                    <>
+                        <button
+                            onClick={onToggleView}
+                            className="flex items-center gap-2 p-2 lg:px-5 lg:py-2.5 text-sm font-bold text-gray-500 hover:text-foreground hover:bg-gray-50 rounded-xl transition-all"
+                        >
+                            {viewMode === 'preview' ? (
+                                <>
+                                    <Edit3 size={18} />
+                                    <span className="hidden lg:inline">Editar</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Eye size={18} />
+                                    <span className="hidden lg:inline">Vista Previa</span>
+                                </>
+                            )}
+                        </button>
+                        <button
+                            onClick={onSave}
+                            className="flex items-center gap-2 p-2 lg:px-5 lg:py-2.5 text-sm font-bold text-primary hover:bg-primary/5 rounded-xl transition-all"
+                        >
+                            <Save size={18} />
+                            <span className="hidden lg:inline">Guardar</span>
+                        </button>
+                        <div className="hidden lg:block w-px h-6 bg-gray-100 mx-2"></div>
+                    </>
+                )}
 
                 <div className="relative">
                     <button
