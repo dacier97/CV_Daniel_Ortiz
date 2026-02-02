@@ -20,17 +20,25 @@ const Navbar = ({
 }) => {
     const [isDownloadOpen, setIsDownloadOpen] = useState(false);
 
-    const socialLinks = [
+    const socialLinks = {
+        linkedin: "https://www.linkedin.com/in/daniel-ortiz-developer-full/",
+        instagram: "https://www.instagram.com/danny_ortiza?igsh=ZHFvanY3ZWlsb3J6",
+        x: "https://x.com",
+        tiktok: "https://tiktok.com",
+        facebook: "https://facebook.com"
+    };
+
+    const socialIcons = [
         {
             icon: <Linkedin size={18} />,
-            href: "#",
+            href: socialLinks.linkedin || "https://linkedin.com",
             color: "hover:text-[#0077b5]",
             label: "LinkedIn",
             bg: "hover:bg-[#0077b5]/10"
         },
         {
             icon: <Instagram size={18} />,
-            href: "#",
+            href: socialLinks.instagram || "https://instagram.com",
             color: "hover:text-[#e4405f]",
             label: "Instagram",
             bg: "hover:bg-[#e4405f]/10"
@@ -41,7 +49,7 @@ const Navbar = ({
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
             ),
-            href: "#",
+            href: socialLinks.x || "https://x.com",
             color: "hover:text-black",
             label: "X",
             bg: "hover:bg-black/10"
@@ -52,14 +60,14 @@ const Navbar = ({
                     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z" />
                 </svg>
             ),
-            href: "#",
+            href: socialLinks.tiktok || "https://tiktok.com",
             color: "hover:text-black",
             label: "TikTok",
             bg: "hover:bg-black/10"
         },
         {
             icon: <Facebook size={18} />,
-            href: "#",
+            href: socialLinks.facebook || "https://facebook.com",
             color: "hover:text-[#1877f2]",
             label: "Facebook",
             bg: "hover:bg-[#1877f2]/10"
@@ -79,10 +87,12 @@ const Navbar = ({
 
             {/* Premium Social Media Icons Distribution */}
             <div className="hidden md:flex items-center gap-1 bg-gray-50/50 p-1.5 rounded-2xl border border-gray-100/50 group">
-                {socialLinks.map((social, index) => (
+                {socialIcons.map((social, index) => (
                     <a
                         key={index}
                         href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         title={social.label}
                         className={`p-2.5 text-gray-400 transition-all duration-300 rounded-xl flex items-center justify-center ${social.color} ${social.bg} hover:scale-110 active:scale-95 hover:shadow-sm`}
                     >
