@@ -122,6 +122,20 @@ const Navbar = ({
                     </>
                 )}
 
+                <button
+                    onClick={() => {
+                        if (typeof window !== 'undefined') {
+                            navigator.clipboard.writeText(window.location.href);
+                            alert('Enlace copiado al portapapeles');
+                        }
+                    }}
+                    className="flex items-center gap-2 p-2 lg:px-4 lg:py-2.5 text-sm font-bold text-gray-500 hover:text-foreground hover:bg-gray-50 rounded-xl transition-all mr-2"
+                    title="Copiar enlace"
+                >
+                    <Share2 size={18} />
+                    <span className="hidden lg:inline">Compartir</span>
+                </button>
+
                 <div className="relative">
                     <button
                         onClick={() => setIsDownloadOpen(!isDownloadOpen)}

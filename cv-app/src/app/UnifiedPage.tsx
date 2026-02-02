@@ -151,6 +151,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
                         }
                     }}
                     onDownloadPremium={async () => {
+                        document.title = `${cvData?.personalInfo?.name || 'Daniel'}-${cvData?.personalInfo?.lastName || 'Ortiz'}-CV`;
                         setIsAtsFriendly(false);
                         setViewMode('preview');
                         await document.fonts.ready;
@@ -158,6 +159,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
                         window.print();
                     }}
                     onDownloadAts={async () => {
+                        document.title = `${cvData?.personalInfo?.name || 'Daniel'}-${cvData?.personalInfo?.lastName || 'Ortiz'}-CV-ATS`;
                         setIsAtsFriendly(true);
                         setViewMode('preview');
                         await document.fonts.ready;
