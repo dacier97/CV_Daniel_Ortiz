@@ -111,9 +111,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
 
     const handleLogout = async () => {
         await signOut();
-        setUser(null);
-        setViewMode('preview');
-        router.replace('/'); // redirección inmediata al portfolio público
+        router.replace('/');
     };
 
     const handleColorChange = (color: string) => {

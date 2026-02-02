@@ -14,13 +14,11 @@ const LoginForm = () => {
 
     useEffect(() => {
         const checkSession = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                router.replace('/');
-            }
+            const { data } = await supabase.auth.getSession();
+            if (data.session) router.replace('/');
         };
         checkSession();
-    }, [router, supabase]);
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
