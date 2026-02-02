@@ -111,7 +111,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
 
     const handleLogout = async () => {
         await signOut();
-        router.replace('/');
+        window.location.reload();
     };
 
     const handleColorChange = (color: string) => {
