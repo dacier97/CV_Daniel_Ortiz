@@ -113,6 +113,7 @@ export default function UnifiedPage({ initialUser }: { initialUser: any }) {
         await signOut();
         setUser(null);
         setViewMode('preview');
+        router.replace('/'); // redirección inmediata al portfolio público
     };
 
     const handleColorChange = (color: string) => {

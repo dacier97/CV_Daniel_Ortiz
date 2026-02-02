@@ -1,12 +1,26 @@
 "use client";
 
-import React, { useState, useTransition } from 'react';
+import React, { useState, useTransition, useEffect } from 'react';
 import { Lock, Mail, ArrowRight, Loader2 } from 'lucide-react';
 import { signIn } from '@app/actions/auth';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 
 const LoginForm = () => {
     const [error, setError] = useState<string | null>(null);
     const [isPending, startTransition] = useTransition();
+    const router = useRouter();
+    const supabase = createClient();
+
+    useEffect(() => {
+        const checkSession = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                router.replace('/');
+            }
+        };
+        checkSession();
+    }, [router, supabase]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
